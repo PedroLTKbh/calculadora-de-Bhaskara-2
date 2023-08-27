@@ -1,0 +1,36 @@
+import PySimpleGUI as sg
+
+sg.theme('DarkBlue15')
+layout = [
+    [sg.Text('Primeiro numero:'), sg.InputText(key='a')],
+    [sg.Text('Segundo numero:'), sg.InputText(key='b')],
+    [sg.Text('Terceiro numero:'), sg.InputText(key='c')],
+    [sg.Push(),sg.Button('Calcular'), sg.Push()]
+]
+
+window = sg.Window('Bhaskara', layout)
+
+while True:
+    event, values = window.read()
+
+    if event  == sg.WINDOW_CLOSED:
+        break
+    
+    elif event == 'Calcular':
+        try:
+            a = float(values['a'])
+            b = float(values['b'])
+            c = float(values['c'])
+            delta = b**2 - 4 * a * c
+
+            if delta < 0:
+                sg.Popup('Nao a raizes reais')
+            else:
+                x1 = (-b + (delta ** 0.5)) / (2 * a )
+                x2 = (-b - (delta ** 0.5)) / (2 * a ) 
+                sg.Popup(f'Raizes: x1 = {x1:.2f}, x2 = {x2:.2f}')
+
+        except:
+            sg.Popup('Insira os valores!')
+
+window.close()
